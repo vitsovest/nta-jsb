@@ -138,9 +138,9 @@ toBoolean = !!value;
 console.log(`${value}, через кнарный !!`, toBoolean);
 console.log(`Тип данных ${value}, кнарный !!`, typeof toBoolean);
 
-console.log(Boolean(""));
-console.log(Boolean(0));
-console.log(Boolean(NaN));
-console.log(Boolean(undefined));
-console.log(Boolean(null));
-console.log(Boolean(false));
+// console.log(Boolean(""));
+// console.log(Boolean(0));
+// console.log(Boolean(NaN));
+// console.log(Boolean(undefined));
+// console.log(Boolean(null));
+// console.log(Boolean(false));
