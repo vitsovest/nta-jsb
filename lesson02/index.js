@@ -1,0 +1,1 @@
+<script src='js/task02.js'></script>
