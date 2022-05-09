@@ -1,8 +1,8 @@
 console.log("TASK 06");
 
-var1 = 1;
-var2 = 0;
-var3 = true;
+let var1 = 1;
+let var2 = 0;
+let var3 = true;
 
 console.log("var1 > var2:", var1 > var2);                   //true, т.к. 1>0
 console.log("var1 == var3:", var1 == var3);                 //true, т.к. приведенная к булю 1 = true и нестрогое равенство с true
