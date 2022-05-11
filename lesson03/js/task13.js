@@ -14,7 +14,7 @@ if (itemsNumber == null){
         console.log("Not enough credits to purchase");
     } else {
         credits = credits - totalPrice;
-        console.log(`You have purchased ${itemsNumber} droids, ${credits} left`);
+        console.log(`You have purchased ${itemsNumber} droids, ${credits} credits left`);
 
     }
 }
