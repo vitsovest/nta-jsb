@@ -1,28 +1,20 @@
 console.log("TASK 14");
 
-let deliveryToCountryPrice = {
-    Китай: 100,
-    Чили: 250,
-    Австралия: 170,
-    Индия: 80,
-    Ямайка: 120
-};
+let deliveryToCountry = ["КИТАЙ", "ЧИЛИ", "АВСТРАЛИЯ", "ИНДИЯ", "ЯМАЙКА"];
+let deliveryPrice = [100, 250, 170, 80, 120];
 
 let deliveryCountry = prompt("Which country dou you want to deliver?").toUpperCase().trim();
 
-console.log(deliveryToCountryPrice.Китай);
-console.log(Object.keys(deliveryToCountryPrice));
-console.log(deliveryToCountryPrice);
+let indx = deliveryToCountry.indexOf(deliveryCountry.toUpperCase());
 
-for (let value of Object.keys(deliveryToCountryPrice)){
-    if (value == deliveryCountry) {
-        console.log(value);
-        break;
-    }
-}
+console.log(deliveryCountry);
+console.log(indx);
+console.log(`Доставка в ${deliveryCountry} будет стоить ${deliveryPrice[indx]} кредитов`);
+// console.log(deliveryToCountry.length);
 
-// switch (deliveryCountry){
-//     case null:
+
+// switch (indx){
+//     case 0:
 //         message = 'Canceled by user!';
 //         break;
 //     case ADMIN_PASSWORD:
