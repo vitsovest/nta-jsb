@@ -1,19 +1,19 @@
-console.log("TASK 01");
-console.log("Function Expression");
+console.log("TASK 02");
+console.log("Function Declaration");
 console.log("----== a ==----");
 
-const getSum  = function (param1 = 0, param2 = 0) {
+function task_02a (param1 = 0, param2 = 0) {
 
     return parseFloat(param1) + parseFloat(param2);
 };
 
-let result = getSum(2, 1);
+let result = task_02a(2, 1);
 console.log("Result is:", result);
 
 /*----------------------------------------------------------------------------------*/
 console.log("----== b ==----");
 
-const message = function (userName, userAge) {
+function task_02b(userName, userAge) {
     let msg;
     let age = parseInt(userAge);
 
@@ -33,34 +33,34 @@ const message = function (userName, userAge) {
     return msg;
 }
 
-let msg = message("Name", 17);
+let msg = task_02b("Name", 17);
 console.log(msg);
 
 /*-----------------------------------------------------------------------------------*/
 console.log("----== c ==----");
 
-const task_01с = function () {
+function task_02c() {
     return "unexpected token";
 }
 
-console.log(task_01с());
+console.log(task_02c());
 
 /*-----------------------------------------------------------------------------------*/
 console.log("----== d ==----");
 
-const task_01d = function (param1) {
+function task_02d(param1) {
     let dataType = typeof param1;
     return dataType
 }
 
-console.log(task_01d(true));
+console.log(task_02d(true));
 
 /*-----------------------------------------------------------------------------------*/
 console.log("----== e ==----");
 
-const getMax = function (...rest) {
+function task_02e(...rest) {
     let maxValue = Math.max(...rest);
     return maxValue;
 }
 
-console.log(getMax(0,1,2));
+console.log(task_02e(0,1,2));
