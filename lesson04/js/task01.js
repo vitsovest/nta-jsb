@@ -27,18 +27,22 @@ const message = function (userName, userAge) {
     if (!parseInt(userAge)) {userAge = "XZ"};
     let age = parseInt(userAge);
 
-    if (age < 18) {
-        msg = `${userName}, вы еще очень молоды!`
-    }
-    else if (age >= 18 && age<50) {
-        msg = `${userName}, добро пожаловать в личный кабинет!`
-    }
-    else if (age >= 50) {
-        msg = `${userName}, моё почтение!`
-    }
-    else{
-        msg = "Укажите корректные данные!";
-    }
+    msg = "Укажите корректные данные!";
+    (age < 18) && (msg = `${userName}, вы еще очень молоды!`);
+    (age >= 18) && (age<50) && (msg = `${userName}, добро пожаловать в личный кабинет!`);
+    (age >= 50) && (msg = `${userName}, моё почтение!`);
+    // if (age < 18) {
+    //     msg = `${userName}, вы еще очень молоды!`
+    // }
+    // else if (age >= 18 && age<50) {
+    //     msg = `${userName}, добро пожаловать в личный кабинет!`
+    // }
+    // else if (age >= 50) {
+    //     msg = `${userName}, моё почтение!`
+    // }
+    // else{
+    //     msg = "Укажите корректные данные!";
+    // }
 
     return msg;
 }
