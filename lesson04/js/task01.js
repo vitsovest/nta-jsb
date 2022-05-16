@@ -3,11 +3,20 @@ console.log("Function Expression");
 console.log("----== a ==----");
 
 const getSum  = function (param1 = 0, param2 = 0) {
-
+    if (!parseFloat(param1)) {param1 = 0};
+    if (!parseFloat(param2)) {param2 = 0};
     return parseFloat(param1) + parseFloat(param2);
 };
 
-let result = getSum(2, 1);
+let result = getSum("fsd", true);
+console.log("Result is:", result);
+result = getSum();
+console.log("Result is:", result);
+result = getSum(5,6);
+console.log("Result is:", result);
+result = getSum(5, false);
+console.log("Result is:", result);
+result = getSum("5.125", true);
 console.log("Result is:", result);
 
 /*----------------------------------------------------------------------------------*/
@@ -15,6 +24,7 @@ console.log("----== b ==----");
 
 const message = function (userName, userAge) {
     let msg;
+    if (!parseInt(userAge)) {userAge = "XZ"};
     let age = parseInt(userAge);
 
     if (age < 18) {
@@ -35,6 +45,14 @@ const message = function (userName, userAge) {
 
 let msg = message("Name", 17);
 console.log(msg);
+msg = message("Name", true);
+console.log(msg);
+msg = message();
+console.log(msg);
+msg = message("Name", "19");
+console.log(msg);
+msg = message("Name", "50sd");
+console.log(msg);
 
 /*-----------------------------------------------------------------------------------*/
 console.log("----== c ==----");
@@ -54,6 +72,9 @@ const task_01d = function (param1) {
 }
 
 console.log(task_01d(true));
+console.log(task_01d("true"));
+console.log(task_01d(123));
+console.log(task_01d(123n));
 
 /*-----------------------------------------------------------------------------------*/
 console.log("----== e ==----");
@@ -64,3 +85,6 @@ const getMax = function (...rest) {
 }
 
 console.log(getMax(0,1,2));
+console.log(getMax(0,5,2));
+console.log(getMax("8",1,2));
+console.log(getMax(0,true,false));
