@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Request-Form</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <article>
+        <form class="form" name="request_service" id="formRequestedService">
+            <div class="inp">
+                <label for="fullName">Full name</label>
+                <input id="fullName" name="fullName" type="text" value="vko">
+            </div>
+
+            <div class="inp">
+                <label for="phoneNumber">Phone number</label>
+                <input id="phoneNumber" name="PhoneNumber" type="tel" value="000 000 00 00">
+            </div>
+
+            <div class="inp">
+                <label for="address">Address</label>
+                <input id="address" name="address" type="text" value="My Street">
+            </div>
+
+            <div class="inp">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" value="vko@gmail">
+            </div>
+
+            <div class="inp">
+                <label for="requestedService">Requested service</label>
+                <input id="requestedService" name="requestedService" type="text" value="Pack 1">
+            </div>
+
+            <div class="inp">
+                <label for="dayOfService">Day of service</label>
+                <input id="dayOfService" name="dayOfService" type="text" value="01-01-2022">
+            </div>
+
+            <div class="inp note">
+            <label>Add a note</label>
+            <textarea name="notes" maxlength="240"></textarea>
+            </div>
+
+
+            <button type="submit">Submit message</button>
+        </form>
+    </article>
+
+</div>
+
+<script src="./js/refs.js" type="module"></script>
+<script src="./js/form.js" type="module"></script>
+<script src="./index.js" type="module"></script>
+</body>
+</html>

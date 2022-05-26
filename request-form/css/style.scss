@@ -1,0 +1,73 @@
+/*reset*/
+
+*, *::before, *::after{
+  margin:  0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button{
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+html{
+  font-family: 'Public Sans', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/*MAIN*/
+.container{
+  max-width: 1440px;
+  margin: auto;
+  background-color: antiquewhite;
+
+  form{
+    width: 673px;
+    border: 1px solid #EFF0F6;
+    border-radius: 16px;
+    box-shadow: 0px 2px 6px rgba(20, 20, 43, 0.04);
+    margin-top: 240px;
+    margin-left: 657px;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 33px;
+    grid-row-gap: 32px;
+
+    .inp{
+      align-self: center;
+      justify-self: center;
+    }
+
+    .note{
+      grid-row-start: 4;
+      grid-row-end: 5;
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+
+    label{
+      font-size: 18px;
+      line-height: 30px;
+      font-weight: 400;
+    }
+
+    input{
+      width: 259px;
+      height: 72px;
+      border: 1px solid #EFF0F6;
+      box-shadow: 0px 2px 12px rgba(20, 20, 43, 0.08);
+      border-radius: 16px;
+    }
+
+    button{
+      width: 219px;
+      height: 72px;
+      background: #0075FF;
+      border-radius: 14px;
+    }
+  }
+}
