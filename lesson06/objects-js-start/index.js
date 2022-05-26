@@ -1,6 +1,5 @@
 // экспортируем по дефолту из текущего файла фукнкции для использования в других файлах
-export default { createObject, getInputValues };
-//export default { createObject, getInputValues, getNames, createTemplateObject };
+export default { createObject, getInputValues, getNames, createTemplateObject };
 
 // === 1 СОЗДАНИЕ ОБЪЕКТА
 
@@ -71,7 +70,7 @@ const users = JSON.parse(localStorage.getItem("users")); // достанем и�
 
 const phoneDB = [];
 const mailDB = [];
-// const namesDB = [];
+const namesDB = [];
 
 for (let user of users) {
 //   //   console.log(user);
@@ -82,13 +81,13 @@ for (let user of users) {
   mailDB.push(mail);
 }
 
-console.log("phoneDB", phoneDB);
-console.log("mailDB", mailDB);
+// console.log("phoneDB", phoneDB);
+// console.log("mailDB", mailDB);
 
 // а теперь соберем все параметры из инпутов через REST
 
 function getInputValues(...args) {
-    console.log("НОРМАЛЬНЫЙ ПОЛНОЦЕННЫЙ МАССИВ args: ", args); // ES6
+    // console.log("НОРМАЛЬНЫЙ ПОЛНОЦЕННЫЙ МАССИВ args: ", args); // ES6
 
 //   //   console.log("НЕДОМАССИВ arguments: ", arguments); // ES5
 
@@ -102,80 +101,120 @@ function getInputValues(...args) {
 //   //   console.log("normalArray", normalArray);
 
 //   //   деструктуризирую мои оба нормальных массива, чтобы проанализировать имена пользователей
-//   const [name] = args;
-//   //   console.log("DESTRUCNURING NAME: ", name);
-//   namesDB.push(name);
-//   //   console.log("namesDB by destructuring", namesDB);
+  const [name] = args;
+  // console.log("DESTRUCNURING NAME: ", name);
+
+  const [,,email] = args;
+    // console.log("DESTRUCNURING NAME: ", email);
+  namesDB.push(name);
+    // console.log("namesDB by destructuring", namesDB);
 }
 
 // а теперь не все, первый отдельно заведем
 // а теперь соберем все параметры из инпутов через REST
 
-// function getNames(name, ...args) {
-//   //   console.log("НОРМАЛЬНЫЙ ПОЛНОЦЕННЫЙ МАССИВ args: ", args); // ES6
-
-//   namesDB.push(name);
-//   //   console.log("namesDB by first param", namesDB);
-// }
+function getNames(name, ...args) {
+  //   console.log("НОРМАЛЬНЫЙ ПОЛНОЦЕННЫЙ МАССИВ args: ", args); // ES6
+  //   console.log(name);
+  namesDB.push(name);
+  //   console.log("namesDB by first param", namesDB);
+}
 
 // == 2.4 вычисляемые свойства (если не знаем при создании объекта, какое должно быть имя ключа)
 
-// function createTemplateObject(keys, values) {
-//   const obj = {};
-// //   for (let i = 0; i < keys.length; i++) {
-// //     // console.log(i);
-// //     let key = keys[i];
-// //     // console.log(key);
-// //     let value = values[i];
-// //     // console.log(value);
-// //     obj[key] = value;
-// //   }
-//   return obj;
-// }
+function createTemplateObject(keys, values) {
+  const obj = {};
+  for (let i = 0; i < keys.length; i++) {
+    // console.log(i);
+    let key = keys[i];
+    // console.log(key);
+    let value = values[i];
+    // console.log(value);
+    obj[key] = value;
+  }
+  return obj;
+}
 
-// const templateUsers = JSON.parse(localStorage.getItem("templateUsers")); // достанем из хранилища созданные формой объекты
-// console.log("templateUsers", templateUsers);
+const templateUsers = JSON.parse(localStorage.getItem("templateUsers")); // достанем из хранилища созданные формой объекты
+console.log("templateUsers", templateUsers);
 
-// for (let user of templateUsers) {
-//   console.log("user", user);
+for (let user of templateUsers) {
+  // console.log("user", user);
+    for (let key in user) {
+        console.log(`${key}: ${user[key]}`);
+}
 
-//   const keys = Object.keys(user);
+  const keys = Object.keys(user);
 
-// //   for (let key of keys) {
+  for (let key of keys) {
 // //     console.log("keys", keys);
 // //     console.log("key: value", `${key}: ${user[key]}`);
-// //   }
+  }
 
-//   const values = Object.values(user);
+  const values = Object.values(user);
 
-// //   for (let value of values) {
+  for (let value of values) {
 // //     console.log("values", values);
 // //     console.log("value: ", value);
-// //   }
+  }
 
-//   const entries = Object.entries(user);
+  const entries = Object.entries(user);
 
-// //   for (let entry of entries) {
+  for (let entry of entries) {
 // //     console.log("entries", entries);
-// //     console.log(entry);
-// //   }
-// }
+    console.log(entry);
+    let key = entry[0];
+    let val = entry[1];
+      console.log(key);
+  }
+}
 
 // 2.5 МЕТОДЫ объекта - функции - свойства, отвечающие на вопрос: Что делать?
 // служат для работы со свойствами объекта
 
 // == можно объявить сразу в объекте
 // по-старому ES5
+const productsList = {
+    produtcList: ["greean apples","dark chokolate", "coffee"],
+    mapProducts: function () {
+        for (let product of this.produtcList) {
+            console.log(product);
+        }
+    },
+}
 
 
 // console.log(productsList);
 // productsList.mapProducts();
 
 // по-нормальному ES6
+const moviesList = {
+    movieList: ["Interception","Up in the air"],
+    showMovies() {
+        console.log("массив ",this.movieList);
+        console.log("не массив ",...this.movieList);
+    },
+}
 
-// moviesList.showMovies(); // вызываем метод объекта!
+moviesList.showMovies(); // вызываем метод объекта!
 
 // == метод можно добавить, как обычное свойство
+
+productsList.showProducts = function () {
+    console.log("массив product:", this.produtcList);
+    console.log("не массив product:", ...this.produtcList);
+}
+console.log(productsList);
+productsList.showProducts();
+
+moviesList.mapMovies = function () {
+    for (let movie of this.movieList) {
+        console.log(movie);
+    }
+}
+
+console.log(moviesList);
+moviesList.showMovies();
 
 
 // console.log(productsList);

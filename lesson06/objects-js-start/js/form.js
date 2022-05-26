@@ -6,8 +6,7 @@ const { form } = refs;
 // затягиваем функции для обработки данных формы
 import x from "../index.js";
 // деструктуризируем нужные функции из файла, который затянули
-const { createObject, getInputValues } = x;
-//const { createObject, getInputValues, getNames, createTemplateObject } = x;
+const { createObject, getInputValues, getNames, createTemplateObject } = x;
 
 // объявляем массивы для хранения объектов из данных заполнения формы
 const users = [];
@@ -48,9 +47,9 @@ form.addEventListener("submit", (e) => {
   localStorage.setItem("users", JSON.stringify(users));
 
     getInputValues(name, phone, email, pass, confirmPass);
-  //   getNames(...values); // распыляем через SPREAD массив аргументов values
+    getNames(...values); // распыляем через SPREAD массив аргументов values
 
-  //   const templateUser = createTemplateObject(keys, values);
+    const templateUser = createTemplateObject(keys, values);
   templateUsers.push(templateUser);
   localStorage.setItem("templateUsers", JSON.stringify(templateUsers));
 
