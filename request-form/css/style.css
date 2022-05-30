@@ -19,50 +19,50 @@ html {
 
 /*MAIN*/
 .container {
-  max-width: 1440px;
+  max-width: 673px;
   margin: auto;
-  background-color: antiquewhite;
 }
 .container form {
-  width: 673px;
   border: 1px solid #EFF0F6;
   border-radius: 16px;
   box-shadow: 0px 2px 6px rgba(20, 20, 43, 0.04);
-  margin-top: 240px;
-  margin-left: 657px;
   background-color: white;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 33px;
-  grid-row-gap: 32px;
+  padding: 85px 61px;
+  margin-top: 20px;
 }
 .container form .inp {
-  align-self: center;
-  justify-self: center;
+  flex-direction: column;
 }
-.container form .note {
-  grid-row-start: 4;
-  grid-row-end: 5;
-  grid-column-start: 1;
-  grid-column-end: 3;
-}
-.container form label {
+.container form .inp label {
   font-size: 18px;
   line-height: 30px;
   font-weight: 400;
+  margin-bottom: 12px;
 }
-.container form input {
-  width: 259px;
+.container form .inp input {
+  max-width: 259px;
   height: 72px;
   border: 1px solid #EFF0F6;
   box-shadow: 0px 2px 12px rgba(20, 20, 43, 0.08);
   border-radius: 16px;
+  margin-bottom: 32px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.container form .inp textarea {
+  border: 1px solid #EFF0F6;
+  box-shadow: 0px 2px 7px rgba(20, 20, 43, 0.08);
+  border-radius: 22px;
+  height: 144px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 .container form button {
   width: 219px;
   height: 72px;
   background: #0075FF;
   border-radius: 14px;
+  margin-top: 42px;
 }
 
 /*# sourceMappingURL=style.css.map */

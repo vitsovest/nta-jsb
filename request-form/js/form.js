@@ -13,21 +13,10 @@ const { createObject } = x;
 const requestedServices = [];
 // const templateUsers = [];
 
-// вспомогательный массив значений
-const keys = [
-  "fullName",
-  "phoneNumber",
-  "address",
-  "email",
-  "requestedService",
-  "dayOfService",
-  "notes",
-];
-
 // "слушаем" событие отправки формы для получения данных из нее
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  //   console.log(e); //- объект события
+ form.addEventListener("submit", (e) => {
+   e.preventDefault();
+   // console.log(e); //- объект события
   //   ПОЛУЧАЕМ ЗНАЧЕНИЯ ИЗ ИНПУТОВ
   let fullName = e.target.elements.fullName.value;
      // console.log(fullName);
@@ -46,21 +35,14 @@ form.addEventListener("submit", (e) => {
   //   ========================================
     const oneRequestedService = createObject(fullName, phoneNumber, address, email, requestedService, dayOfService, notes); // передаем отдельные аргументы
   console.log(oneRequestedService);
-  //console.log(JSON.stringify(oneRequestedService));
+  // console.log(JSON.stringify(oneRequestedService));
   //   или создадим массив аргументов для передачи в вызов функции
   const values = [fullName, phoneNumber, address, email, requestedService, dayOfService, notes];
-  // console.log(values);
+ // console.log(values);
   // снова вызываем эту же функцию
   //   const user = createObject(...values); // распыляем через SPREAD массив аргументов values
   requestedServices.push(oneRequestedService);
   localStorage.setItem("requestedServices", JSON.stringify(requestedServices));
-
-    // getInputValues(fullName, phoneNumber, address, email, requestedService, dayOfService, notes);
-    // getNames(...values); // распыляем через SPREAD массив аргументов values
-
-    // const templateUser = createTemplateObject(keys, values);
-  // templateUsers.push(templateUser);
-  // localStorage.setItem("templateUsers", JSON.stringify(templateUsers));
 
   return requestedServices /*, templateUser*/;
 });
