@@ -1,0 +1,391 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap');
+
+$negro: #121618;
+$blanco: #fff;
+$gris: #eee;
+$primario: #47d3e6;
+$secundario: #232f3d;
+
+@mixin flex ($dir: row, $wrap: wrap, $ai: center, $jc: center, $ac: center){
+  display: flex;
+  flex-direction: $dir;
+  flex-wrap: $wrap;
+  align-items: $ai;
+  justify-content: $jc;
+  align-content: $ac;
+}
+
+@mixin image ($url: '', $size: cover, $position: center, $repeat: no-repeat) {
+  @if  $url != '' {
+    background-image: url($url);
+  }
+  background-size: $size;
+  background-position: $position;
+  background-repeat: $repeat;
+}
+
+@mixin ellipsisParrafo($lineas: 3){
+  -webkit-line-clamp: $lineas;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+}
+
+// Media Queries
+@mixin desktop {
+  @media only screen and (max-width: 1024px){ @content; }
+}
+@mixin tablet {
+  @media only screen and (max-width: 768px){ @content; }
+}
+@mixin mobile {
+  @media only screen and (max-width: 480px){ @content; }
+}
+//@mixin responsivo($medida) {
+//  @media only screen and (max-width: $medida){ @content; }
+//}
+
+:root{
+  --currencyPrefix: "$";
+}
+body{
+  overflow-x: hidden;
+  color: #666;
+  padding: 0;
+  margin: 0 auto;
+  *{
+    font-family: 'Inter', sans-serif;
+    @include mobile{
+      cursor: default !important;
+    }
+  }
+  p{
+    margin: 0;
+  }
+  a {
+    color: #666;
+    text-decoration: none;
+  }
+  ul, li{
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+}
+
+.button{
+  display: block;
+  padding: 10px 20px;
+  color: $blanco;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  background-color: $secundario;
+  transition: ease all .3s;
+  cursor: pointer;
+  &:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 10px 10px 0 rgba($negro,.1);
+  }
+}
+
+.buttonIcono{
+  border-radius: 50px;
+  color: $secundario;
+  border: 1px solid $secundario;
+  cursor: pointer;
+  transition: ease all .3s;
+  .icono{
+    width: 20px;
+    height: 20px;
+    padding: 10px;
+    svg{
+      path, circle{
+        fill: transparent;
+        stroke-width: 2;
+        stroke: currentColor;
+        stroke-miterlimit: 10;
+        transition: ease all .3s;
+      }
+    }
+  }
+}
+
+.cards{
+  @include flex;
+  width: 100%;
+  min-height: 100vh;
+  max-width: 1600px;
+  margin: 0 auto;
+  .container{
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px 0;
+    .containerCards{
+      @include flex;
+    }
+  }
+}
+
+.card{
+  width: 25%;
+  min-width: 300px;
+  .innerProd{
+    height: calc(100% - 20px);
+    margin: 10px;
+    border-radius: 5px;
+    display: block;
+    border: 1px solid $gris;
+    background-color: $blanco;
+    overflow: hidden;
+    user-select: none;
+    transition: ease all .3s;
+    &:hover{
+      box-shadow: 0 5px 10px 0 rgba($negro,.2);
+    }
+    .imgWrapper{
+      @include flex;
+      width: 100%;
+      height: 200px;
+      box-sizing: border-box;
+      background-color: $gris;
+      position: relative;
+      &:hover{
+        .imgProd{
+          transform: scale(.8);
+        }
+        .quickDetail{
+          width: 100%;
+          height: 100%;
+          opacity: 1;
+        }
+      }
+      .quickDetail{
+        @include flex(column);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        width: 90%;
+        height: 90%;
+        padding: 20px;
+        opacity: 0;
+        color: $blanco;
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background-color: rgba($negro,.9);
+        box-sizing: border-box;
+        overflow: hidden;
+        cursor: pointer;
+        z-index: 1;
+        transition: ease all .3s;
+        .icono{
+          width: 35px;
+          height: 35px;
+          margin-bottom: 5px;
+          svg{
+            path, circle{
+              fill: none;
+              stroke: currentColor;
+            }
+          }
+        }
+      }
+      .imgProd{
+        @include image('', contain);
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        margin: 10px;
+        transition: ease all .3s;
+      }
+    }
+    .info{
+      padding: 20px 10px;
+      text-align: center;
+      display: block;
+      height: 180px;
+      box-sizing: border-box;
+      .prodName{
+        @include ellipsisParrafo(2);
+        margin: 0 auto;
+        margin-bottom: 10px;
+        color: $negro;
+        font-weight: 600;
+      }
+      .prodDesc{
+        @include ellipsisParrafo;
+        margin: 0 auto;
+        max-width: 80%;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+      .prices{
+        @include flex($wrap: nowrap, $jc: space-between);
+        .price{
+          font-size: 25px;
+          font-weight: 600;
+          color: $secundario;
+          &:before{
+            content: var(--currencyPrefix);
+            font-size: 18px;
+            text-transform: uppercase;
+          }
+        }
+        .stock{
+          @include flex($wrap: nowrap);
+          font-size: 14px;
+          font-weight: 600;
+          text-align: right;
+          &.out{
+            &:before{
+              background-color: red;
+            }
+          }
+          &:before{
+            content: "";
+            width: 10px;
+            height: 10px;
+            min-width: 10px;
+            margin-right: 5px;
+            border-radius: 50%;
+            background-color: green;
+          }
+        }
+        .priceOriginal{
+          color: red;
+          font-weight: 600;
+          text-align: right;
+          text-decoration: line-through;
+          &:before{
+            content: var(--currencyPrefix);
+            font-size: 14px;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+    .actions{
+      @include flex;
+      padding: 20px 10px;
+      .button{
+        margin-bottom: 30px;
+        padding: 10px 20px;
+        color: $blanco;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border-radius: 50px;
+        background-color: $secundario;
+        cursor: pointer;
+        transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) all .5s;
+        &:hover{
+          transform: translateY(-5px);
+          box-shadow: 0 5px 10px 0 rgba($negro,.5);
+        }
+      }
+      .row-buttons{
+        @include flex(row, nowrap, center, space-between);
+        width: 100%;
+        .checkBox{
+          @include flex;
+          position: relative;
+          cursor: pointer;
+          input{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            z-index: 1;
+            cursor: pointer;
+            &:checked{
+              ~.icon{
+                &:after{
+                  width: 80%;
+                  height: 80%;
+                }
+              }
+            }
+          }
+          .icon{
+            @include flex;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            border-radius: 50%;
+            border: 1px solid $secundario;
+            position: relative;
+            &:after{
+              @include flex;
+              content: "✓";
+              position: absolute;
+              width: 0;
+              height: 0;
+              color: $blanco;
+              font-size: 10px;
+              border-radius: 50%;
+              background-color: $primario;
+              transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) all .3s;
+            }
+          }
+          .checkBoxLabel{
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+          }
+        }
+        .favorites{
+          @include flex;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          cursor: pointer;
+          &:after{
+            content: "A favoritos";
+          }
+          &.esFav{
+            &:after{
+              content: "En favoritos";
+            }
+            .icono{
+              animation: anim_favsHeart .2s linear;
+              svg{
+                path{
+                  fill: red;
+                }
+              }
+            }
+          }
+          .icono{
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            color: red;
+            svg{
+              overflow: hidden;
+              path{
+                fill: transparent;
+                stroke: currentColor;
+                stroke-width: 2;
+                stroke-miterlimit: 10;
+                transition: ease all .3s;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
