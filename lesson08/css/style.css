@@ -31,6 +31,14 @@ body ul, body li {
   list-style-type: none;
 }
 
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+.disabled * {
+  pointer-events: none !important;
+}
+
 .button {
   display: block;
   padding: 10px 20px;
@@ -373,10 +381,10 @@ body ul, body li {
   cursor: pointer;
 }
 .card .innerProd .actions .row-buttons .favorites:after {
-  content: "A favoritos";
+  content: "To favorites";
 }
 .card .innerProd .actions .row-buttons .favorites.esFav:after {
-  content: "En favoritos";
+  content: "In favorites";
 }
 .card .innerProd .actions .row-buttons .favorites.esFav .icono {
   animation: anim_favsHeart 0.2s linear;
