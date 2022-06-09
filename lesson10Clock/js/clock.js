@@ -1,15 +1,76 @@
 import refs from './refs.js';
- const {h1, h2, m1, m2, s1, s2, timeFormatsBlock, clockBtn, timerBtn, counterBtn, am, pm} = refs;
+ const {h1, h2, m1, m2, s1, s2,
+     timeFormatsBlock,
+     timeOptionsBlock,
+     controlBtnsBlock,
+     clockBtn, timerBtn, counterBtn,
+     am, pm, timeAmPmBlock,
+     alarmInputBlock, alarmInput,
+     clockFace,
+     startBtn, pauseBtn, stopBtn,
+ } = refs;
 // console.log(h1, h2, m1, m2, s1, s2);
 
 let format = 1;     //time format 12hrs or 24hrs
+let stopChecker = 0;
+let timeHolder = 0;
 
 timeFormatsBlock.addEventListener('click', (e) => {
         [...timeFormatsBlock.children].map(span =>
             span.classList.toggle('active'))
         e.target.id === '12hr' ? format = 2 : format = 1;
-    }
-)
+    });
+
+startBtn.addEventListener('click', () => {
+    startBtn.style.display = 'none';
+    pauseBtn.style.display = 'block';
+    stopChecker = 0;
+});
+
+pauseBtn.addEventListener('click', () => {
+    startBtn.style.display = 'block';
+    pauseBtn.style.display = 'none';
+});
+
+stopBtn.addEventListener('click', () => {
+
+});
+
+clockBtn.addEventListener('click', () => {
+    format = timeFormatsBlock.children['24hr'].classList.contains('active') ? 1 : 2;
+    timeFormatsBlock.style.display = 'flex';
+    controlBtnsBlock.style.display = 'none';
+    alarmInputBlock.style.display = 'none';
+    clockFace.style.display = 'flex';
+})
+
+timerBtn.addEventListener('click', () => {
+    format = 3;
+    timeHolder = 0;
+    stopChecker = 1;
+    resetClassNames();
+    timeFormatsBlock.style.display = 'none';
+    controlBtnsBlock.style.display = 'block';
+    timeAmPmBlock.style.display = 'none';
+    clockFace.style.display = 'flex';
+    alarmInputBlock.style.display = 'none';
+})
+
+counterBtn.addEventListener('click', () => {
+    format = 4;
+    timeFormatsBlock.style.display = 'none';
+    controlBtnsBlock.style.display = 'block';
+    timeAmPmBlock.style.display = 'none';
+    clockFace.style.display = 'none';
+    alarmInputBlock.style.display = 'block';
+})
+
+timeOptionsBlock.addEventListener('click', (e) => {
+    // console.log(e.target);
+    // console.log([...timeOptionsBlock.children]);
+    // [...timeOptionsBlock.children].map(div =>
+    //     div.classList.replace())
+})
 
 function updateTimer() {
     let date = new Date();
@@ -35,9 +96,15 @@ function updateTimer() {
         set24hours(time);
     };
     if (format === 2) {
+        timeAmPmBlock.style.display = 'block';  //при переходе из секундомера и обратного отсчета
         set12hours(time, hours);
     };
-
+    if (format === 3 && stopChecker === 0){
+        timeHolder++;
+    }
+    if (format === 4 && stopChecker === 0){
+        timeHolder--;
+    }
     setInterval(updateTimer, 1000);     //renew vars every 1 second
 }
 
@@ -84,6 +151,10 @@ function setClassName(node, clasName) {         //
         ? node.classList.replace(clasItem, clasName)
         : node.classList.add(clasName));
 
+}
+
+function resetClassNames(){
+    [h1, h2, m1, m2, s1, s2].map(node => setClassName(node, 'show0'))
 }
 
 

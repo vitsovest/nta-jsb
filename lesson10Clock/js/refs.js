@@ -9,6 +9,14 @@ export default {
     s2: document.querySelector('.S2'),
 
     timeFormatsBlock: document.querySelector('.Type'),
+    timeOptionsBlock: document.querySelector('.TimeOptions'),
+    controlBtnsBlock: document.querySelector('.control'),
+    timeAmPmBlock: document.querySelector('.Formats'),
+
+    startBtn: document.querySelector('.Start'),
+    pauseBtn: document.querySelector('.Pause'),
+    stopBtn: document.querySelector('.Stop'),
+
 
     body: document.querySelector('body'),
 
@@ -20,4 +28,8 @@ export default {
     clockBtn: document.querySelector('[data-title="Time"]'),
     timerBtn: document.querySelector('[data-title="StopWatch"]'),
     counterBtn: document.querySelector('[data-title="CountDown"]'),
+
+    alarmInputBlock: document.querySelector('.AlarmInput'),
+    alarmInput: document.querySelector('.AlarmInput input'),
+    clockFace: document.querySelector('.Numbers'),
 };
