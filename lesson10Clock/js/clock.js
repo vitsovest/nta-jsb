@@ -8,6 +8,7 @@ import refs from './refs.js';
      alarmInputBlock, alarmInput,
      clockFace,
      startBtn, pauseBtn, stopBtn,
+     body,
  } = refs;
 // console.log(h1, h2, m1, m2, s1, s2);
 
@@ -25,6 +26,19 @@ startBtn.addEventListener('click', () => {
     startBtn.style.display = 'none';
     pauseBtn.style.display = 'block';
     stopChecker = 0;
+    if(format === 3){
+    };
+
+    if(format === 4){
+        timeHolder = alarmInput.value;
+        // if(timeHolder === 0) return;
+        if(timeHolder > 0) {
+            resetClassNames();      //обнуляем циферблат
+            alarmInputBlock.style.display = 'none';
+            clockFace.style.display = 'flex';
+            alarmInput.value = '';
+        }
+    };
 });
 
 pauseBtn.addEventListener('click', () => {
@@ -33,10 +47,24 @@ pauseBtn.addEventListener('click', () => {
 });
 
 stopBtn.addEventListener('click', () => {
+    body.classList.remove('BgAnimation');
+    resetClassNames();
+    startBtn.style.display = 'block';
+    pauseBtn.style.display = 'none';
+    stopChecker = 1;
 
+    if(format === 3){
+        timeHolder = 0;
+    }
+    if(format === 4){
+        timeHolder = 0;
+        alarmInputBlock.style.display = 'none';
+        clockFace.style.display = 'flex';
+    }
 });
 
 clockBtn.addEventListener('click', () => {
+    body.classList.remove('BgAnimation');
     format = timeFormatsBlock.children['24hr'].classList.contains('active') ? 1 : 2;
     timeFormatsBlock.style.display = 'flex';
     controlBtnsBlock.style.display = 'none';
@@ -58,11 +86,14 @@ timerBtn.addEventListener('click', () => {
 
 counterBtn.addEventListener('click', () => {
     format = 4;
+    stopChecker = 1;
     timeFormatsBlock.style.display = 'none';
     controlBtnsBlock.style.display = 'block';
     timeAmPmBlock.style.display = 'none';
     clockFace.style.display = 'none';
     alarmInputBlock.style.display = 'block';
+    startBtn.style.display = 'block';
+    pauseBtn.style.display = 'none';
 })
 
 timeOptionsBlock.addEventListener('click', (e) => {
@@ -81,17 +112,7 @@ function updateTimer() {
     let minutes = date.getMinutes();
     let seconds = date.getSeconds();
 
-    const time = {          //make object
-        hoursNumFirst : Math.floor(hours / 10),     //1st digit
-        hoursNumSecond : hours % 10,                   //2nd digit
-
-        minutesNumFirst : Math.floor(minutes / 10),     //1st digit
-        minutesNumSecond : minutes % 10,                   //2nd digit
-
-        secondsNumFirst : Math.floor(seconds / 10),     //1st digit
-        secondsNumSecond : seconds % 10,                   //2nd digit
-
-    }
+    const time = setTimeObject(hours, minutes, seconds)
     if (format === 1) {
         set24hours(time);
     };
@@ -101,11 +122,26 @@ function updateTimer() {
     };
     if (format === 3 && stopChecker === 0){
         timeHolder++;
+        setTimer(timeHolder);
     }
     if (format === 4 && stopChecker === 0){
         timeHolder--;
+        timeHolder === 0 ? setAlarm() : setTimer(timeHolder);
     }
     setInterval(updateTimer, 1000);     //renew vars every 1 second
+}
+
+function setTimeObject(h,m,s) {
+    return{
+        hoursNumFirst : Math.floor(h / 10),     //1st digit
+        hoursNumSecond : h % 10,                   //2nd digit
+
+        minutesNumFirst : Math.floor(m / 10),     //1st digit
+        minutesNumSecond : m % 10,                   //2nd digit
+
+        secondsNumFirst : Math.floor(s / 10),     //1st digit
+        secondsNumSecond : s % 10,                   //2nd digit
+    };
 }
 
 function setDayOfWeek(day) {
@@ -143,6 +179,19 @@ function set12hours(time, hours) {
     setClassName(m2, `show${time.minutesNumSecond}`);
     setClassName(s1, `show${time.secondsNumFirst}`);
     setClassName(s2, `show${time.secondsNumSecond}`);
+}
+
+function setTimer(timeHolder){
+    let hours = Math.floor(timeHolder/3600);
+    let minutes = Math.floor((timeHolder - hours*3600)/60);
+    let seconds = timeHolder - hours*3600 - minutes*60;
+
+    const time = setTimeObject(hours, minutes, seconds);
+}
+
+function setAlarm() {
+    body.classList.add('BgAnimation');
+    stopChecker = 1;
 }
 
 function setClassName(node, clasName) {         //
