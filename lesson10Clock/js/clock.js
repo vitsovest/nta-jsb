@@ -23,27 +23,35 @@ timeFormatsBlock.addEventListener('click', (e) => {
     });
 
 startBtn.addEventListener('click', () => {
-    startBtn.style.display = 'none';
-    pauseBtn.style.display = 'block';
+    body.classList.remove('BgAnimation');
     stopChecker = 0;
     if(format === 3){
+        startBtn.style.display = 'none';
+        pauseBtn.style.display = 'block';
     };
 
     if(format === 4){
         timeHolder = alarmInput.value;
+        // console.log(alarmInput.value);
         // if(timeHolder === 0) return;
+        if (!timeHolder) return;
         if(timeHolder > 0) {
+            startBtn.style.display = 'none';
+            pauseBtn.style.visibility = 'hidden';
             resetClassNames();      //обнуляем циферблат
             alarmInputBlock.style.display = 'none';
             clockFace.style.display = 'flex';
             alarmInput.value = '';
-        }
+        }else return;
     };
 });
 
 pauseBtn.addEventListener('click', () => {
-    startBtn.style.display = 'block';
-    pauseBtn.style.display = 'none';
+    if (format === 3) {
+        startBtn.style.display = 'block';
+        pauseBtn.style.display = 'none';
+        stopChecker = 1;
+    }
 });
 
 stopBtn.addEventListener('click', () => {
@@ -58,8 +66,11 @@ stopBtn.addEventListener('click', () => {
     }
     if(format === 4){
         timeHolder = 0;
-        alarmInputBlock.style.display = 'none';
-        clockFace.style.display = 'flex';
+        alarmInputBlock.style.display = 'block';
+        clockFace.style.display = 'none';
+        startBtn.style.display = 'block';
+        pauseBtn.style.display = 'none';
+        alarmInput.focus();
     }
 });
 
@@ -70,6 +81,7 @@ clockBtn.addEventListener('click', () => {
     controlBtnsBlock.style.display = 'none';
     alarmInputBlock.style.display = 'none';
     clockFace.style.display = 'flex';
+    alarmInput.value = '';
 })
 
 timerBtn.addEventListener('click', () => {
@@ -77,16 +89,19 @@ timerBtn.addEventListener('click', () => {
     timeHolder = 0;
     stopChecker = 1;
     resetClassNames();
+    console.log(format, timeHolder, stopChecker);
     timeFormatsBlock.style.display = 'none';
     controlBtnsBlock.style.display = 'block';
     timeAmPmBlock.style.display = 'none';
     clockFace.style.display = 'flex';
     alarmInputBlock.style.display = 'none';
+    alarmInput.value = '';
 })
 
 counterBtn.addEventListener('click', () => {
     format = 4;
     stopChecker = 1;
+    resetClassNames();
     timeFormatsBlock.style.display = 'none';
     controlBtnsBlock.style.display = 'block';
     timeAmPmBlock.style.display = 'none';
@@ -94,6 +109,7 @@ counterBtn.addEventListener('click', () => {
     alarmInputBlock.style.display = 'block';
     startBtn.style.display = 'block';
     pauseBtn.style.display = 'none';
+    alarmInput.focus();
 })
 
 timeOptionsBlock.addEventListener('click', (e) => {
@@ -104,6 +120,7 @@ timeOptionsBlock.addEventListener('click', (e) => {
 })
 
 function updateTimer() {
+
     let date = new Date();
     // console.log(date);
     let day = date.getDay();     //DayOfWeek
@@ -125,11 +142,11 @@ function updateTimer() {
         setTimer(timeHolder);
     }
     if (format === 4 && stopChecker === 0){
-        timeHolder--;
         timeHolder === 0 ? setAlarm() : setTimer(timeHolder);
+        timeHolder--;
     }
-    setInterval(updateTimer, 1000);     //renew vars every 1 second
 }
+setInterval(updateTimer, 1000);     //renew vars every 1 second
 
 function setTimeObject(h,m,s) {
     return{
@@ -173,12 +190,7 @@ function set12hours(time, hours) {
             pm.classList.remove('active');
         }
     };
-    setClassName(h1, `show${time.hoursNumFirst}`);
-    setClassName(h2, `show${time.hoursNumSecond}`);
-    setClassName(m1, `show${time.minutesNumFirst}`);
-    setClassName(m2, `show${time.minutesNumSecond}`);
-    setClassName(s1, `show${time.secondsNumFirst}`);
-    setClassName(s2, `show${time.secondsNumSecond}`);
+    set24hours(time);
 }
 
 function setTimer(timeHolder){
@@ -187,10 +199,12 @@ function setTimer(timeHolder){
     let seconds = timeHolder - hours*3600 - minutes*60;
 
     const time = setTimeObject(hours, minutes, seconds);
+    set24hours(time);
 }
 
 function setAlarm() {
     body.classList.add('BgAnimation');
+    resetClassNames();
     stopChecker = 1;
 }
 
@@ -206,5 +220,3 @@ function resetClassNames(){
     [h1, h2, m1, m2, s1, s2].map(node => setClassName(node, 'show0'))
 }
 
-
-updateTimer();
